@@ -1,14 +1,14 @@
 public class Attention{
-    public static boolean Attention(String str){
-        if(str.length()>5){
+    public static boolean attention(String str){
+        if(str.length()>=8){
           return(str.substring(0,8).equals("Hey you!"));
-        }else if (str.length()<=5){
+        }else{
             return false;
         }
               
     }
     public static void testAttention(String str, boolean expected){
-        boolean result = Attention(str);
+        boolean result = attention(str);
         
         System.out.println("str = "+str+" expected = "+expected+" result = "+result);
         
