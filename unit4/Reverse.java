@@ -15,6 +15,8 @@ public class Reverse{
         reverse("tacocat");
         reverse("Hello, world!");
         reverse("I am a frog");
+         reverse("Jessica");
+        reverse("cara huang");
     }
     
 }
