@@ -13,11 +13,24 @@ public class CountOccurrences{
          return x;
     }
     
+     public static void testCountOccurrences(String a, String b, int expected){
+        int result = countOccurrences(a,b);
+        
+       System.out.println("String a: "+a+" String b: "+b+"expected = "+expected+" Count: "+result);
+        
+        if (result == expected){
+            System.out.println("Yay!!!!!!");
+        }else{
+            System.out.println("BOOOOOOO");
+        }
+        
+    }
+    
     public static void main(String[] args){
-        countOccurrences("Mississippi", "iss");
-        countOccurrences("banananana", "na");
-        countOccurrences("Polar Bear", "ar");
-        countOccurrences("miabae", "a");
-        countOccurrences("miabae", "ello");
+        testCountOccurrences("Mississippi", "iss", 2);
+        testCountOccurrences("banananana", "na", 4);
+        testCountOccurrences("Polar Bear", "ar", 2);
+        testCountOccurrences("miabae", "a", 2);
+        testCountOccurrences("miabae", "ello", 0);
     }
 }
