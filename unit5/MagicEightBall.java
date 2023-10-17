@@ -6,19 +6,21 @@ public class MagicEightBall{
     private final String five = "it depends";
     
     public String ask(String ask){
+        String s = "Q: "+ask+" A: ";
         int a = (int)(Math.random()*5)+1;
         if (a == 1){
-            return one;
+            s+=one;
         }else if (a ==2){
-            return two;
+            s+=two;
         }else if (a ==3){
-            return three;
+            s+= three;
         }else if (a ==4){
-            return four;
+            s+= four;
         }else if (a ==5){
-            return five;
+            s+= five;
         }else{
-            return "ew";
+            s+= "ew";
         }
+        return s;
     }
 }
