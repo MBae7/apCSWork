@@ -2,28 +2,42 @@ import processing.core.*;
 public class Arrows{
   private PApplet p;
   private float x,y;
-  private float xt;
+  private int xt;
   //velocity 
   private float yv;
   //optionally color and size 
   //private color c;
-  private float s;
-  private float d; //direction
-  private float initialY=20;
+  private int s;
+  private String d; //direction
+  private float initialY;
+  private PImage up,down,left,right;
     
-public BouncingBall(PApplet p, float x, float y, float yv, float s, float d){
+public Arrows(PApplet p, float x, float y, float yv, int s, String d){
         this.p = p;
         this.x = x;
         this.y = y;
         this.yv = yv;
         this.s = s;
         this.d = d;
+        initialY = p.height;
+    
+        up = p.loadImage("Up.png");
+        up.resize(s, s);
+    
+        down = p.loadImage("Down.png");
+        down.resize(s, s);
+    
+        left = p.loadImage("Left.png");
+        left.resize(s, s);
+    
+        right = p.loadImage("Right.png");
+        right.resize(s, s);
     }
     
  public void update(){
    //incremeent the position by velocity 
   // x+=xv;
-   y+=yv;
+   y-=yv;
   }
   //check edges
  public void checkEdges(){
@@ -32,17 +46,29 @@ public BouncingBall(PApplet p, float x, float y, float yv, float s, float d){
    p.fill(p.random(255),p.random(255),p.random(255));*/
   if (y>p.height || y<0){
    y= initialY;
-   xt = int(random(1,5));
-   x = (xt/5)*width;
+   xt = (int)(p.random(1,5));
+     // xt=5;
+   x = (xt)*p.width/5;
    }
 
 
  }
-  }
-  //display the ball
+  
+
  public void display(){
-   p.fill(x+c,y*c/4,(x+y)/c*2);
-   p.ellipse(x,y,s,s); 
-  }
+  // p.fill(x+c,y*c/4,(x+y)/c*2);
+ if(d == "up"){
+    p.image(up, x, y);
+    }
+if(d == "down"){
+    p.image(down, x, y);
+    }
+if(d == "left"){
+    p.image(left, x, y);
+    }
+if(d == "right"){
+    p.image(right, x, y);
+    }
+ }
    
 } 
