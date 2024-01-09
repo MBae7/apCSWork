@@ -70,5 +70,7 @@ if(d == "right"){
     p.image(right, x, y);
     }
  }
+    
+
    
 } 

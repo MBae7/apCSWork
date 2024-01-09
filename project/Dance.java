@@ -62,3 +62,14 @@ public class Dance extends PApplet {
         PApplet.main("Dance");
     }
 }
+
+
+/* task list
+    - get arrow holes to display
+    - get keypress collision detection between arrows and arrow holes
+    - if collides move arrow (back to bottom for now?) 
+    - make a lot of arrows, make sure collisions still work
+        - remove arrow when collides, be constantly making new arrows, timed out?
+        - add in score, if collides add to scor and remove from list, if goes off top, don't add in score and remove from list 
+    - add in music 
+    - figure out how want music and 
