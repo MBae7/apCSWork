@@ -12,10 +12,10 @@ public class VehicleTest{
         vehicles.add(new Motorcycle("Harley", 2, false));
         
         vehicles.add(new Bicycle("Diamond", 2, true));
-        vehicles.add(new Bicycle("Harley", 2, true));
+        vehicles.add(new Bicycle("Jane", 2, true));
         
-        vehicles.add(new Bicycle("German", 1, true));
-        vehicles.add(new Bicycle("Clown", 1, true));
+        vehicles.add(new Unicycle("German", 1, true));
+        vehicles.add(new Unicycle("Clown", 1, true));
         
         
         for (Vehicle v : vehicles)
