@@ -1,20 +1,40 @@
 import processing.core.*;
+import java.util.*;
 public class Dance extends PApplet {
-    ArrayList<Arrows> arrows;
-    Arrows a;
+    ArrayList<Arrows> arrows = new ArrayList<Arrows>();
+    Arrows u;
     Arrows d;
     Arrows l;
+    Arrows r;
+    
+    ArrayList<ArrowHoles> holes = new ArrayList<ArrowHoles>();;
+    ArrowHoles uh;
+    ArrowHoles dh;
+    ArrowHoles lh;
+    ArrowHoles rh;
+    
+    String state;
+    
+    int score = 0;
     //PImage gback;
    public void settings(){
         fullScreen();
    }
     
     public void setup(){
-       arrows = new ArrayList<Arrows>();
-       a = new Arrows(this,200,height,3,75,"up");
+    //   arrows = new ArrayList<Arrows>();
+       u = new Arrows(this,200,height,3,75,"up");
        d = new Arrows(this,300,height,3,75,"down");
        l = new Arrows(this,400,height,3,75,"left");
+       r = new Arrows(this,500,height,3,75,"right");
        
+        
+       //  holes = new ArrayList<ArrowHoles>();
+       uh = new ArrowHoles(this,200,100,75,"up");
+       dh = new ArrowHoles(this,300,100,75,"down");
+       lh = new ArrowHoles(this,400,100,75,"left");
+       rh = new ArrowHoles(this,500,100,75,"right");
+        
         state = "GAME";
     }
     public void draw(){
@@ -22,21 +42,11 @@ public class Dance extends PApplet {
       background(0);  
         
     if(state == "GAME"){
-        Arrow a = new Dot()
+      drawGame(); 
+        
     }
         
-      a.update();
-      a.checkEdges();
-      a.display();
-      
-      
-      d.update();
-      d.checkEdges();
-      d.display();
-        
-      l.update();
-      l.checkEdges();
-      l.display();
+     
     
         /*if (state == "START") {
             drawStart();
@@ -49,18 +59,48 @@ public class Dance extends PApplet {
     }
     
     public void drawStart(){
-        
+      */  
     }
     
     
-    public void drawGame{
-     */   
+    public void drawGame(){
+        
+        
+        
+       u.update();
+       u.checkEdges();
+       u.collision(holes);
+        u.display();
+        
+        d.update();
+       d.checkEdges();
+       d.collision(holes);
+        d.display();
+        
+        l.update();
+       l.checkEdges();
+       l.collision(holes);
+        l.display();
+        
+        r.update();
+       r.checkEdges();
+       r.collision(holes);
+        r.display();
+        
+        uh.display();
+        dh.display();
+        lh.display();
+        rh.display();
+        
+        text("score: "+score, 600,100);
     }
         
      public static void main(String[] args)
     {
         PApplet.main("Dance");
     }
+    
+     public int score() {return score;}
 }
 
 
@@ -73,3 +113,4 @@ public class Dance extends PApplet {
         - add in score, if collides add to scor and remove from list, if goes off top, don't add in score and remove from list 
     - add in music 
     - figure out how want music and 
+    */
