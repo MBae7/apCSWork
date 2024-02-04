@@ -59,15 +59,18 @@ public Arrows(Dance p, float x, float y, float yv, int s, String d){
  }
     
 public void collision(ArrayList<ArrowHoles> holes){
-    if (d == "up"){
-       for(ArrowHoles h : holes){
+    if (d.equals("up")){
+        //if I print smth here it works
+      for(ArrowHoles h : holes){
+          //but as soon as its inside this loop it doesn't    
         if(x==h.x() && y>=h.y()-h.s() && y<=h.y()+h.s()){
-            if(p.keyPressed && p.keyCode == p.UP){
+            if(p.keyPressed && p.key == 'w'){
                 p.score++;
                 System.out.println(p.score);
                 y = initialY;
             }else{ 
-                
+              
+        }
             }
         }
         }
