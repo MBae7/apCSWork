@@ -99,22 +99,18 @@ public class Dance extends PApplet {
         
        u.update();
        u.checkEdges();
-       u.collision(holes);
         u.display();
         
         d.update();
        d.checkEdges();
-       d.collision(holes);
         d.display();
         
         l.update();
        l.checkEdges();
-       l.collision(holes);
         l.display();
         
         r.update();
        r.checkEdges();
-       r.collision(holes);
         r.display();
         
         uh.display();
@@ -125,23 +121,12 @@ public class Dance extends PApplet {
         text("score: "+score, 600,100);
     }
     
-   /* public void keyPressed(){
-        if (u.d().equals("up") && keyCode == UP){
-            if(u.x()==uh.x() && u.y()>=uh.y()-uh.s() && u.y()<=uh.y()+uh.s()){
-                score++;
-                System.out.println(score);
-                u.initialY();
-            }
-        }
-    }*/
     
     public void keyPressed() {
-        // Set the flag when 'UP' key is pressed
         KeyPressed = true;
     }
         
     public void keyReleased() {
-        // Reset the flag when 'UP' key is released
             KeyPressed = false;
     }
     

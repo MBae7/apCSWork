@@ -39,46 +39,15 @@ public Arrows(Dance p, float x, float y, float yv, int s, String d){
     }
     
  public void update(){
-   //incremeent the position by velocity 
-  // x+=xv;
    y-=yv;
   }
+    
   //check edges
  public void checkEdges(){
- /*if (x>p.width || x<0){
-  xv = -1*xv;
-   p.fill(p.random(255),p.random(255),p.random(255));*/
   if (y>p.height || y<0){
    y= initialY+p.random(1,100);
-  // xt = (int)(p.random(1,5));
-     // xt=5;
-  // x = (xt)*p.width/5;
-   }
-
-
+  }
  }
-    
-    
-
-    
-public void collision(ArrayList<ArrowHoles> holes){
-    if (d.equals("up")){
-        //if I print smth here it works
-      for(ArrowHoles h : holes){
-          //but as soon as its inside this loop it doesn't    
-        if(x==h.x() && y>=h.y()-h.s() && y<=h.y()+h.s()){
-            if(p.keyPressed && p.key == 'w'){
-                p.score++;
-                System.out.println(p.score);
-                y = initialY;
-            }else{ 
-              
-        }
-            }
-        }
-    }
-}
-  
 
  public void display(){
        p.rectMode(p.CENTER);
