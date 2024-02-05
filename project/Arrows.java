@@ -58,6 +58,9 @@ public Arrows(Dance p, float x, float y, float yv, int s, String d){
 
  }
     
+    
+
+    
 public void collision(ArrayList<ArrowHoles> holes){
     if (d.equals("up")){
         //if I print smth here it works
@@ -72,7 +75,6 @@ public void collision(ArrayList<ArrowHoles> holes){
               
         }
             }
-        }
         }
     }
 }
@@ -95,6 +97,12 @@ if(d == "right"){
     }
  }
     
-
+    public float x() {return x;}
+    public float y() {return y;}
+    public int s() {return s;}
+    public void initialY() {
+        y= initialY;
+    }
+    public String d() {return d;}
    
 } 

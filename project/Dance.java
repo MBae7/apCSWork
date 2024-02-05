@@ -16,6 +16,8 @@ public class Dance extends PApplet {
     String state;
     
     int score = 0;
+    
+     boolean KeyPressed = false;
     //PImage gback;
    public void settings(){
         fullScreen();
@@ -65,7 +67,35 @@ public class Dance extends PApplet {
     
     public void drawGame(){
         
-        
+       if (u.d().equals("up") && keyCode == UP && KeyPressed) {
+            if (u.x() == uh.x() && u.y() >= uh.y() - uh.s() && u.y() <= uh.y() + uh.s()) {
+                score++;
+                System.out.println(score);
+                u.initialY();
+            }
+        }
+        if (d.d().equals("down") && keyCode == DOWN && KeyPressed) {
+            if (d.x() == dh.x() && d.y() >= dh.y() - dh.s() && d.y() <= dh.y() + dh.s()) {
+                score++;
+                System.out.println(score);
+                d.initialY();
+            }
+        }
+        if (l.d().equals("left") && keyCode == LEFT && KeyPressed) {
+            if (l.x() == lh.x() && l.y() >= lh.y() - lh.s() && l.y() <= lh.y() + lh.s()) {
+                score++;
+                System.out.println(score);
+                l.initialY();
+            }
+        }
+
+        if (r.d().equals("right") && keyCode == RIGHT && KeyPressed) {
+            if (r.x() == rh.x() && r.y() >= rh.y() - rh.s() && r.y() <= rh.y() + rh.s()) {
+                score++;
+                System.out.println(score);
+                r.initialY();
+            }
+        }
         
        u.update();
        u.checkEdges();
@@ -94,7 +124,27 @@ public class Dance extends PApplet {
         
         text("score: "+score, 600,100);
     }
+    
+   /* public void keyPressed(){
+        if (u.d().equals("up") && keyCode == UP){
+            if(u.x()==uh.x() && u.y()>=uh.y()-uh.s() && u.y()<=uh.y()+uh.s()){
+                score++;
+                System.out.println(score);
+                u.initialY();
+            }
+        }
+    }*/
+    
+    public void keyPressed() {
+        // Set the flag when 'UP' key is pressed
+        KeyPressed = true;
+    }
         
+    public void keyReleased() {
+        // Reset the flag when 'UP' key is released
+            KeyPressed = false;
+    }
+    
      public static void main(String[] args)
     {
         PApplet.main("Dance");
