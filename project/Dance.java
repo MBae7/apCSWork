@@ -2,10 +2,8 @@ import processing.core.*;
 import java.util.*;
 public class Dance extends PApplet {
     ArrayList<Arrows> arrows = new ArrayList<Arrows>();
-    Arrows u;
-    Arrows d;
-    Arrows l;
-    Arrows r;
+    
+ 
     
     ArrayList<ArrowHoles> holes = new ArrayList<ArrowHoles>();;
     ArrowHoles uh;
@@ -13,7 +11,13 @@ public class Dance extends PApplet {
     ArrowHoles lh;
     ArrowHoles rh;
     
+    String arrow = "";
+    
+    int num = 0;
+    
     String state;
+    
+    
     
     int score = 0;
     
@@ -25,11 +29,7 @@ public class Dance extends PApplet {
     
     public void setup(){
     //   arrows = new ArrayList<Arrows>();
-       u = new Arrows(this,200,height,3,75,"up");
-       d = new Arrows(this,300,height,3,75,"down");
-       l = new Arrows(this,400,height,3,75,"left");
-       r = new Arrows(this,500,height,3,75,"right");
-       
+       addArrow();
         
        //  holes = new ArrayList<ArrowHoles>();
        uh = new ArrowHoles(this,200,100,75,"up");
@@ -66,52 +66,19 @@ public class Dance extends PApplet {
     
     
     public void drawGame(){
+       Iterator<Arrows> iterator = arrows.iterator(); // Initialize iterator here
         
-       if (u.d().equals("up") && keyCode == UP && KeyPressed) {
-            if (u.x() == uh.x() && u.y() >= uh.y() - uh.s() && u.y() <= uh.y() + uh.s()) {
-                score++;
-                System.out.println(score);
-                u.initialY();
-            }
-        }
-        if (d.d().equals("down") && keyCode == DOWN && KeyPressed) {
-            if (d.x() == dh.x() && d.y() >= dh.y() - dh.s() && d.y() <= dh.y() + dh.s()) {
-                score++;
-                System.out.println(score);
-                d.initialY();
-            }
-        }
-        if (l.d().equals("left") && keyCode == LEFT && KeyPressed) {
-            if (l.x() == lh.x() && l.y() >= lh.y() - lh.s() && l.y() <= lh.y() + lh.s()) {
-                score++;
-                System.out.println(score);
-                l.initialY();
-            }
-        }
-
-        if (r.d().equals("right") && keyCode == RIGHT && KeyPressed) {
-            if (r.x() == rh.x() && r.y() >= rh.y() - rh.s() && r.y() <= rh.y() + rh.s()) {
-                score++;
-                System.out.println(score);
-                r.initialY();
+        while (iterator.hasNext()) {
+            Arrows a = iterator.next();
+            a.update();
+            if(a.offScreen()){
+                iterator.remove();
+            } else {
+                a.display();
             }
         }
         
-       u.update();
-       u.checkEdges();
-        u.display();
-        
-        d.update();
-       d.checkEdges();
-        d.display();
-        
-        l.update();
-       l.checkEdges();
-        l.display();
-        
-        r.update();
-       r.checkEdges();
-        r.display();
+  
         
         uh.display();
         dh.display();
@@ -121,15 +88,72 @@ public class Dance extends PApplet {
         text("score: "+score, 600,100);
     }
     
+    public void addArrow(){
+        num = (int)(Math.random()*4)+2;
+        System.out.println(num);
+        if(num == 2){
+            arrow = "up";
+        }else if(num == 3){
+            arrow = "down";
+        }else if(num == 4){
+            arrow = "left";
+        }else if(num == 5){
+            arrow = "right";
+        }
+        System.out.println(arrow);
+        
+        Arrows newArrow = new Arrows(this,num*100,arrow);
+        arrows.add(newArrow);
+        
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                addArrow(); 
+            }
+        }, 1000); 
+    }
+    
     
     public void keyPressed() {
-        KeyPressed = true;
+     
+        
+   Iterator<Arrows> iterator = arrows.iterator();
+    while (iterator.hasNext()) {
+        Arrows a = iterator.next();
+        if (a.d().equals("up") && keyCode == UP) {
+            if (a.x() == uh.x() && a.y() >= uh.y() - uh.s() && a.y() <= uh.y() + uh.s()) {
+                score++;
+                System.out.println(score);
+                iterator.remove(); 
+            }
+        }
+        if (a.d().equals("down") && keyCode == DOWN) {
+            if (a.x() == dh.x() && a.y() >= dh.y() - dh.s() && a.y() <= dh.y() + dh.s()) {
+                score++;
+                System.out.println(score);
+                iterator.remove(); 
+            }
+        }
+        if (a.d().equals("left") && keyCode == LEFT) {
+            if (a.x() == lh.x() && a.y() >= lh.y() - lh.s() && a.y() <= lh.y() + lh.s()) {
+                score++;
+                System.out.println(score);
+                iterator.remove(); 
+            }
+        }
+        if (a.d().equals("right") && keyCode == RIGHT) {
+            if (a.x() == rh.x() && a.y() >= rh.y() - rh.s() && a.y() <= rh.y() + rh.s()) {
+                score++;
+                System.out.println(score);
+                iterator.remove(); 
+            }
+        }
+    }
+
     }
         
-    public void keyReleased() {
-            KeyPressed = false;
-    }
-    
+   
      public static void main(String[] args)
     {
         PApplet.main("Dance");
@@ -137,6 +161,9 @@ public class Dance extends PApplet {
     
      public int score() {return score;}
 }
+
+
+
 
 
 /* task list

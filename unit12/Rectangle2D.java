@@ -13,19 +13,22 @@ public class Rectangle2D
         return total/count;
     }
     
-    public static String greatestArea(Rectangle[][] rectangles)
+    public static Rectangle greatestArea(Rectangle[][] rectangles)
     {
-        String greatest = "";
+        int row = 0;
+        int column = 0;
         double area = 0;
-        for(Rectangle[] row : rectangles){
-            for(Rectangle rect : row){
-                if(rect.area() > area){
-                    area = rect.area();
-                    greatest = rect.name();
+        
+        for (int i=0; i<rectangles.length; i++)
+        {
+            for (int j=0; j<rectangles[i].length; j++)
+            {
+                if(rectangles[i][j].area() > area){
+                    area = rectangles[i][j].area();
                 }
             }
         }
-        return greatest;
+        return rectangles[row][column];
     }
     
     public static void main(String[] args){
@@ -33,7 +36,7 @@ public class Rectangle2D
                                     {new Rectangle("r4",12.4,1.6), new Rectangle("r5",9.4,2), new Rectangle("r6",5.3,5)},
                                     {new Rectangle("r7",10.9,7), new Rectangle("r8",10,12.3), new Rectangle("r9",7.5,5)}};
         
-        System.out.println(greatestArea(rectangles));
+        System.out.println(greatestArea(rectangles).name());
         System.out.println(averagePerimeter(rectangles));
     }
     

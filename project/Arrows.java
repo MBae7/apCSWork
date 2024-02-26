@@ -12,16 +12,14 @@ public class Arrows{
   private String d; //direction
   private float initialY;
   private PImage up,down,left,right;
- 
     
- 
     
-public Arrows(Dance p, float x, float y, float yv, int s, String d){
+public Arrows(Dance p, float x, String d){
         this.p = p;
         this.x = x;
-        this.y = y;
-        this.yv = yv;
-        this.s = s;
+        y = p.height;
+        yv = 3;
+        s = 75;
         this.d = d;
         initialY = p.height;
     
@@ -43,10 +41,8 @@ public Arrows(Dance p, float x, float y, float yv, int s, String d){
   }
     
   //check edges
- public void checkEdges(){
-  if (y>p.height || y<0){
-   y= initialY+p.random(1,100);
-  }
+ public boolean offScreen(){
+  return (y>p.height || y<0);
  }
 
  public void display(){
