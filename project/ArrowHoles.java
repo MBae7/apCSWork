@@ -10,7 +10,6 @@ public class ArrowHoles{
   //private color c;
   private int s;
   private String d; //direction
-  private float initialY;
   private PImage up,down,left,right;
     
     
@@ -20,7 +19,6 @@ public class ArrowHoles{
         this.y = y;
         this.s = s;
         this.d = d;
-        initialY = p.height;
     
            up = p.loadImage("UpHole.png");
      down = p.loadImage("DownHole.png");

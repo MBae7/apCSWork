@@ -1,9 +1,15 @@
 import processing.core.*;
+import processing.sound.*;
 import java.util.*;
 public class Dance extends PApplet {
     ArrayList<Arrows> arrows = new ArrayList<Arrows>();
+    Arrows first;
     
- 
+    SoundFile kungFuBeat;
+    SoundFile kungFu;
+    
+    
+    BeatDetector bD;
     
     ArrayList<ArrowHoles> holes = new ArrayList<ArrowHoles>();;
     ArrowHoles uh;
@@ -24,12 +30,27 @@ public class Dance extends PApplet {
      boolean KeyPressed = false;
     //PImage gback;
    public void settings(){
-        fullScreen();
+        //fullScreen();
+       size(800,displayHeight);
    }
     
     public void setup(){
     //   arrows = new ArrayList<Arrows>();
-       addArrow();
+       
+        
+       first = new Arrows(this,num*100,arrow);
+       arrows.add(first);
+    
+       kungFuBeat = new SoundFile(this, "KungFuFighting.wav");
+       kungFuBeat.play();
+       kungFuBeat.amp(1);
+        
+       kungFu = new SoundFile(this, "KungFuFighting.wav");
+       
+        
+       bD = new BeatDetector(this);
+       bD.input(kungFuBeat);
+       bD.sensitivity(140);
         
        //  holes = new ArrayList<ArrowHoles>();
        uh = new ArrowHoles(this,200,100,75,"up");
@@ -65,7 +86,18 @@ public class Dance extends PApplet {
     }
     
     
-    public void drawGame(){
+public void drawGame(){
+    if (first.y() >= uh.y() - uh.s() && first.y() <= uh.y() + uh.s()) {
+      kungFu.play();      
+     }
+        
+        
+    if(bD.isBeat()){
+        println("Beat Detected");
+            addArrow();
+      text("beat detected1",600,200);
+       
+    }
        Iterator<Arrows> iterator = arrows.iterator(); // Initialize iterator here
         
         while (iterator.hasNext()) {
@@ -105,13 +137,16 @@ public class Dance extends PApplet {
         Arrows newArrow = new Arrows(this,num*100,arrow);
         arrows.add(newArrow);
         
-        Timer timer = new Timer();
+       /* Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 addArrow(); 
             }
         }, 1000); 
+        */
+        
+        
     }
     
     

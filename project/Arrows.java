@@ -10,7 +10,6 @@ public class Arrows{
   //private color c;
   private int s;
   private String d; //direction
-  private float initialY;
   private PImage up,down,left,right;
     
     
@@ -21,7 +20,6 @@ public Arrows(Dance p, float x, String d){
         yv = 3;
         s = 75;
         this.d = d;
-        initialY = p.height;
     
         up = p.loadImage("Up.png");
         up.resize(s, s);
@@ -64,10 +62,8 @@ if(d == "right"){
     
     public float x() {return x;}
     public float y() {return y;}
+    public float yv() {return yv;}
     public int s() {return s;}
-    public void initialY() {
-        y= initialY;
-    }
     public String d() {return d;}
    
 } 
