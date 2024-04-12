@@ -5,13 +5,13 @@ public class Dance extends PApplet {
     ArrayList<Arrows> arrows = new ArrayList<Arrows>();
     Arrows first;
     
-    SoundFile kungFuBeat;
-    SoundFile kungFu;
-    
+
+    SoundFile audible;
+    SoundFile beat;
     
     BeatDetector bD;
     
-    ArrayList<ArrowHoles> holes = new ArrayList<ArrowHoles>();;
+    ArrayList<ArrowHoles> holes = new ArrayList<ArrowHoles>();
     ArrowHoles uh;
     ArrowHoles dh;
     ArrowHoles lh;
@@ -19,10 +19,19 @@ public class Dance extends PApplet {
     
     String arrow = "";
     
+    String kungFu = "KungFuFighting.wav";
+    
+    String byeByeBye = "ByeByeBye.wav";
+    
+    String that = "That'stheway.wav";
+    
+   String song = that;
+    
+    
     int num = 0;
     
     String state;
-    
+     boolean played = false;
     
     
     int score = 0;
@@ -30,8 +39,8 @@ public class Dance extends PApplet {
      boolean KeyPressed = false;
     //PImage gback;
    public void settings(){
-        //fullScreen();
-       size(800,displayHeight);
+        fullScreen();
+       //size(800,displayHeight);
    }
     
     public void setup(){
@@ -41,16 +50,19 @@ public class Dance extends PApplet {
        first = new Arrows(this,num*100,arrow);
        arrows.add(first);
     
-       kungFuBeat = new SoundFile(this, "KungFuFighting.wav");
-       kungFuBeat.play();
-       kungFuBeat.amp(1);
+       beat = new SoundFile(this, song);
+       beat.play();
+       beat.amp((float)0.2);
+    
+       bD = new BeatDetector(this);
+       bD.input(beat);
+       bD.sensitivity(180);
         
-       kungFu = new SoundFile(this, "KungFuFighting.wav");
        
         
-       bD = new BeatDetector(this);
-       bD.input(kungFuBeat);
-       bD.sensitivity(140);
+            
+       audible = new SoundFile(this, song);
+       audible.amp(1);
         
        //  holes = new ArrayList<ArrowHoles>();
        uh = new ArrowHoles(this,200,100,75,"up");
@@ -59,6 +71,7 @@ public class Dance extends PApplet {
        rh = new ArrowHoles(this,500,100,75,"right");
         
         state = "GAME";
+           
     }
     public void draw(){
         
@@ -83,12 +96,15 @@ public class Dance extends PApplet {
     
     public void drawStart(){
       */  
+        
     }
     
     
 public void drawGame(){
-    if (first.y() >= uh.y() - uh.s() && first.y() <= uh.y() + uh.s()) {
-      kungFu.play();      
+
+    if (first.y() >= uh.y() - uh.s() && first.y() <= uh.y() + uh.s()&&played==false) {
+      audible.play();  
+        played = true;
      }
         
         
@@ -98,6 +114,7 @@ public void drawGame(){
       text("beat detected1",600,200);
        
     }
+
        Iterator<Arrows> iterator = arrows.iterator(); // Initialize iterator here
         
         while (iterator.hasNext()) {
@@ -201,13 +218,7 @@ public void drawGame(){
 
 
 
-/* task list
-    - get arrow holes to display
-    - get keypress collision detection between arrows and arrow holes
-    - if collides move arrow (back to bottom for now?) 
-    - make a lot of arrows, make sure collisions still work
-        - remove arrow when collides, be constantly making new arrows, timed out?
-        - add in score, if collides add to scor and remove from list, if goes off top, don't add in score and remove from list 
-    - add in music 
-    - figure out how want music and 
+/* ways 
+        - add in diff tracks
+        - 
     */
