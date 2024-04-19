@@ -40,7 +40,7 @@ public Arrows(Dance p, float x, String d){
     
   //check edges
  public boolean offScreen(){
-  return (y>p.height || y<0);
+  return (y>p.height || y<0);  
  }
 
  public void display(){
