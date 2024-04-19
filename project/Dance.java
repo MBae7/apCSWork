@@ -91,9 +91,9 @@ public class Dance extends PApplet {
        audible.amp(1);
         
        //  holes = new ArrayList<ArrowHoles>();
-       uh = new ArrowHoles(this,200,100,75,"up");
+       uh = new ArrowHoles(this,400,100,75,"up");
        dh = new ArrowHoles(this,300,100,75,"down");
-       lh = new ArrowHoles(this,400,100,75,"left");
+       lh = new ArrowHoles(this,200,100,75,"left");
        rh = new ArrowHoles(this,500,100,75,"right");
         
         state = "START";
@@ -191,11 +191,11 @@ public void drawGame(){
     public void addArrow(){
         num = (int)(Math.random()*4)+2;
         System.out.println(num);
-        if(num == 2){
+        if(num == 4){
             arrow = "up";
         }else if(num == 3){
             arrow = "down";
-        }else if(num == 4){
+        }else if(num == 2){
             arrow = "left";
         }else if(num == 5){
             arrow = "right";
@@ -229,11 +229,11 @@ public void drawGame(){
     public int findTop(){
          int highest = 0;
          for(int i = 1; i<arrows.size(); i++){
-            if(arrows.get(i).x()<arrows.get(highest).x()){
+            if(arrows.get(i).y()<arrows.get(highest).y()){
                 highest = i;
             }
          }
-
+        rect(arrows.get(highest).x(),arrows.get(highest).y(), 60,60);
         return highest;
         
             
