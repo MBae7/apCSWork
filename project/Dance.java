@@ -28,16 +28,16 @@ public class Dance extends PApplet {
     String song = bye;
     
     int lives = 10;
-    int livesX = width/2;
-    int livesY = height/9;
-    int barW = 200;
-    int barH = 40;
+    int livesX;
+    int livesY;
+    int barW;
+    int barH;
     
-    int startX = 350;
-    int tutorialX = startX+350;
-    int buttonY = 700;
-    int buttonW = 400;
-    int buttonH = 100;
+    int startX;
+    int tutorialX;
+    int buttonY;
+    int buttonW;
+    int buttonH;
     
     PImage start, sButton, tButton, bar;
     
@@ -55,11 +55,23 @@ public class Dance extends PApplet {
     //PImage gback;
    public void settings(){
         fullScreen();
-       //size(800,displayHeight);
+       
    }
     
     public void setup(){
     //   arrows = new ArrayList<Arrows>();
+        livesX = width/2;
+        livesY = height/9;
+        barW = width/7;
+        barH = height/22;
+    
+        startX = (int)(width/4.2);
+        tutorialX = (int)(startX*2.1);
+        buttonY = height/9*7;
+        buttonW = 2*width/7;
+        buttonH = height/10;
+        
+        
       start = loadImage("Start.png");
         start.resize(width, height);
       sButton = loadImage("startButton.png");
@@ -71,19 +83,17 @@ public class Dance extends PApplet {
         bar.resize(barW, barH);
     
         
-        
        first = new Arrows(this,num*100,arrow);
        arrows.add(first);
     
        beat = new SoundFile(this, song);
-         beat.play();
        
        beat.amp((float)0.2);
     
        bD = new BeatDetector(this);
        bD.input(beat);
        bD.sensitivity(180);
-        
+       beat.play(); 
        
         
             
@@ -91,10 +101,10 @@ public class Dance extends PApplet {
        audible.amp(1);
         
        //  holes = new ArrayList<ArrowHoles>();
-       uh = new ArrowHoles(this,400,100,75,"up");
-       dh = new ArrowHoles(this,300,100,75,"down");
-       lh = new ArrowHoles(this,200,100,75,"left");
-       rh = new ArrowHoles(this,500,100,75,"right");
+       uh = new ArrowHoles(this,(int)(4*width/13),100,75,"up");
+       dh = new ArrowHoles(this,(int)(3*width/13),100,75,"down");
+       lh = new ArrowHoles(this,(int)(2*width/13),100,75,"left");
+       rh = new ArrowHoles(this,(int)(5*width/13),100,75,"right");
         
         state = "START";
            
@@ -120,8 +130,6 @@ public class Dance extends PApplet {
       image(start, 0, 0);
       image(sButton, startX, buttonY);
       image(tButton, tutorialX, buttonY);
-        
-        
     }
     
     public void drawTutorial(){
@@ -170,17 +178,19 @@ public void drawGame(){
         dh.display();
         lh.display();
         rh.display();
-  //  livesBar();
+    livesBar();
         
         text("score: "+score, 1000,100);
     text("lives: "+lives, 820,100);
          image(bar, livesX, livesY);
     }
-    /*
+    
     public void livesBar(){
-        rect(livesX+20,livesY,barW/10*lives,barH);
+        rectMode(CORNERS);
+    int rectWidth = (lives * barW) / 10; // Adjust scaling factor as needed
+    rect(livesX + 20, (int)(livesY+height/15), livesX + 20 + rectWidth, barH-40);
     }
-    */
+    
     
     public void drawEnd(){
         
@@ -202,7 +212,7 @@ public void drawGame(){
         }
         System.out.println(arrow);
         
-        Arrows newArrow = new Arrows(this,num*100,arrow);
+        Arrows newArrow = new Arrows(this,(int)num*width/13,arrow);
         arrows.add(newArrow);
         
        /* Timer timer = new Timer();
@@ -227,9 +237,12 @@ public void drawGame(){
    } 
     
     public int findTop(){
+        if (arrows.isEmpty()) {
+        return 0; 
+    }
          int highest = 0;
          for(int i = 1; i<arrows.size(); i++){
-            if(arrows.get(i).y()<arrows.get(highest).y()){
+            if(arrows.get(i).y()<arrows.get(highest).y() && arrows.get(i).y()>uh.y()-uh.s()){
                 highest = i;
             }
          }
