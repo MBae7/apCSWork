@@ -27,7 +27,7 @@ public class Dance extends PApplet {
     
     String song = bye;
     
-    int lives = 10;
+    int lives = 21;
     int livesX;
     int livesY;
     int barW;
@@ -43,6 +43,10 @@ public class Dance extends PApplet {
     
     
     int num = 0;
+    
+    int scoreX;
+    int scoreY;
+    int text;
     
     String state;
      boolean played = false;
@@ -64,14 +68,14 @@ public class Dance extends PApplet {
     //   arrows = new ArrayList<Arrows>();
         livesX = width/2;
         livesY = height/9;
-        barW = width/7;
-        barH = height/22;
+        barW = 3*width/14;
+        barH = 3*height/44;
     
         startX = (int)(width/4.2);
         tutorialX = (int)(startX*2.1);
-        buttonY = height/9*7;
-        buttonW = 2*width/7;
-        buttonH = height/10;
+        buttonY = height/40*29;
+        buttonW = (int)(width/1.8);
+        buttonH = height/6;
         
         
       start = loadImage("Start.png");
@@ -131,7 +135,7 @@ public class Dance extends PApplet {
     public void drawStart(){
       image(start, 0, 0);
       image(sButton, startX, buttonY);
-      image(tButton, tutorialX, buttonY);
+      //image(tButton, tutorialX, buttonY);
     }
     
     public void drawTutorial(){
@@ -154,7 +158,6 @@ public void drawGame(){
     if(bD.isBeat()){
         println("Beat Detected");
             addArrow();
-      text("beat detected1",600,200);
        
     }
 
@@ -184,11 +187,17 @@ public void drawGame(){
         dh.display();
         lh.display();
         rh.display();
-    livesBar();
-        
-        text("score: "+score, 1000,100);
-    text("lives: "+lives, 820,100);
-         image(bar, livesX, livesY);
+         livesBar();
+        image(bar, livesX, livesY);
+    
+        scoreX= 15*width/20; 
+        scoreY = 7*height/40-10;
+    
+    
+        text = 50;
+        textSize(text);
+        text("score: "+score,scoreX,scoreY);
+    //text("lives: "+lives, 820,100);
     }
     
     public void livesBar(){
@@ -198,8 +207,14 @@ public void drawGame(){
     rect(livesX + 20, (int)(livesY+height/15), rectWidth, 10);
         }
         */
-          int rectWidth = (lives * barW) / 10; // Adjust scaling factor as needed
-    rect(livesX + 20, (int)(livesY+height/15), livesX + 20 + rectWidth, barH-40);
+        if(lives<21){
+          int rectWidth = (lives * barW)/20; // Adjust scaling factor as needed
+            rect(livesX, (int)(livesY*1.1), rectWidth, barH-barH/2);
+    }else{
+            int rectWidth = barW;
+            rect(livesX, (int)(livesY*1.1), rectWidth, barH-barH/2);
+        }
+   
     }
     
     
@@ -269,10 +284,12 @@ public void drawGame(){
         int index = findTop();
         Arrows current = arrows.get(index);
         if((current.d().equals("up") && keyCode == UP)||(current.d().equals("right") && keyCode == RIGHT)||(current.d().equals("down") && keyCode == DOWN)||(current.d().equals("left") && keyCode == LEFT)){  
-            score += (int)((uh.y()-arrows.get(index).x()));
+            score += (int)(100-abs(uh.y()-arrows.get(index).x())/10);
+            System.out.println(100-abs(uh.y()-arrows.get(index).x())/10);
             System.out.println(score);
             arrows.remove(index); 
-        }
+                               }
+                    }
         }
         
      
@@ -315,7 +332,6 @@ public void drawGame(){
     }
     */
 
-    }
         
    
      public static void main(String[] args)
