@@ -48,6 +48,8 @@ public class Dance extends PApplet {
      boolean played = false;
     boolean play = false;
     
+    //boolean one = true;
+    
     
     int score = 0;
     
@@ -93,7 +95,7 @@ public class Dance extends PApplet {
        bD = new BeatDetector(this);
        bD.input(beat);
        bD.sensitivity(180);
-       beat.play(); 
+       //beat.play(); 
        
         
             
@@ -163,8 +165,12 @@ public void drawGame(){
             a.update();
             if(a.offScreen()){
                 iterator.remove();
+               //if(one == false){
                 lives--;
-                if(lives<=0){
+                //}
+                 //one = false; 
+                //state = "END";
+                 if(lives<=0){
                     state = "END";
                 }
             } else {
@@ -186,8 +192,13 @@ public void drawGame(){
     }
     
     public void livesBar(){
-        rectMode(CORNERS);
-    int rectWidth = (lives * barW) / 10; // Adjust scaling factor as needed
+        rectMode(CORNER);
+      /*  while(lives<11){
+    int rectWidth = (int)(lives * barW) / 10; // Adjust scaling factor as needed
+    rect(livesX + 20, (int)(livesY+height/15), rectWidth, 10);
+        }
+        */
+          int rectWidth = (lives * barW) / 10; // Adjust scaling factor as needed
     rect(livesX + 20, (int)(livesY+height/15), livesX + 20 + rectWidth, barH-40);
     }
     
@@ -246,22 +257,24 @@ public void drawGame(){
                 highest = i;
             }
          }
-        rect(arrows.get(highest).x(),arrows.get(highest).y(), 60,60);
+      //  rect(arrows.get(highest).x(),arrows.get(highest).y(), 60,60);
         return highest;
         
             
     }
      
     public void keyPressed(){
+      
+        if(arrows.size()!=0){
         int index = findTop();
         Arrows current = arrows.get(index);
-        if((current.d().equals("up") && keyCode == UP)||(current.d().equals("right") && keyCode == RIGHT)||(current.d().equals("down") && keyCode == DOWN)||(current.d().equals("left") && keyCode == LEFT)){
-        
-        
-        score += (int)((uh.y()-arrows.get(index).x()));
-        System.out.println(score);
-        arrows.remove(index); 
+        if((current.d().equals("up") && keyCode == UP)||(current.d().equals("right") && keyCode == RIGHT)||(current.d().equals("down") && keyCode == DOWN)||(current.d().equals("left") && keyCode == LEFT)){  
+            score += (int)((uh.y()-arrows.get(index).x()));
+            System.out.println(score);
+            arrows.remove(index); 
         }
+        }
+        
      
         
   /* Iterator<Arrows> iterator = arrows.iterator();
