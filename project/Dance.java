@@ -25,9 +25,11 @@ public class Dance extends PApplet {
     
     String that = "That'stheway.wav";
     
-    String song = bye;
+    String song = that;
     
-    int lives = 21;
+    int initial = 16;
+    
+    int lives = initial;
     int livesX;
     int livesY;
     int barW;
@@ -89,8 +91,7 @@ public class Dance extends PApplet {
         bar.resize(barW, barH);
     
         
-       first = new Arrows(this,num*100,arrow);
-       arrows.add(first);
+       initialize();
     
        beat = new SoundFile(this, song);
        
@@ -115,6 +116,13 @@ public class Dance extends PApplet {
         state = "START";
            
     }
+    
+    public void initialize(){
+        arrows = new ArrayList<Arrows>();
+        first = new Arrows(this,num*100,arrow);
+       arrows.add(first);
+    }
+    
     public void draw(){
         
       background(0);  
@@ -129,12 +137,16 @@ public class Dance extends PApplet {
      } else if (state == "END") {
         drawEnd();
       //  resetGame();
+     }else if (state == "RESET"){
+         drawReset();
      }
+    
     }
     
     public void drawStart(){
       image(start, 0, 0);
       image(sButton, startX, buttonY);
+        lives = initial;
       //image(tButton, tutorialX, buttonY);
     }
     
@@ -144,6 +156,10 @@ public class Dance extends PApplet {
     
     
 public void drawGame(){
+   
+    
+    
+    
     if(play == false){
         beat.play();
         play = true;
@@ -198,6 +214,10 @@ public void drawGame(){
         textSize(text);
         text("score: "+score,scoreX,scoreY);
     //text("lives: "+lives, 820,100);
+    
+        if(audible.isPlaying()==false && played ==true){
+            state = "END";
+        }
     }
     
     public void livesBar(){
@@ -207,8 +227,8 @@ public void drawGame(){
     rect(livesX + 20, (int)(livesY+height/15), rectWidth, 10);
         }
         */
-        if(lives<21){
-          int rectWidth = (lives * barW)/20; // Adjust scaling factor as needed
+        if(lives<initial){
+          int rectWidth = (lives * barW)/initial-1; // Adjust scaling factor as needed
             rect(livesX, (int)(livesY*1.1), rectWidth, barH-barH/2);
     }else{
             int rectWidth = barW;
@@ -219,6 +239,34 @@ public void drawGame(){
     
     
     public void drawEnd(){
+        if(beat.isPlaying()){
+        beat.stop();
+        }
+        if(audible.isPlaying()){
+        audible.stop();
+        }
+        
+        textSize(text);
+        text("score: "+score,scoreX,scoreY);
+        if(scoreX>width/3&&scoreY<height/2){
+        scoreX=scoreX-5;
+        scoreY=scoreY+2;
+        text++;
+          
+        }
+          image(sButton, startX, buttonY);
+        System.out.println(scoreX +" "+ scoreY +" "+text);
+        
+    }
+    
+    public void drawReset(){
+        played = false;
+        play = false;
+       score =0;
+        lives = initial;
+        initialize();
+        state = "GAME";
+        
         
     }
     
@@ -253,11 +301,11 @@ public void drawGame(){
         
     }
    public void mouseClicked(){
-        if(state == "START" && mouseY>=buttonY && mouseY<=buttonY+buttonH){
-            if(mouseX>=startX && mouseX<=startX+buttonW){
+        if( mouseX>=startX && mouseX<=startX+buttonW && mouseY>=buttonY && mouseY<=buttonY+buttonH){
+            if(state == "START"){
                 state = "GAME";
-            }else if(mouseX>=tutorialX && mouseX<=tutorialX+buttonW){
-                state = "TUTORIAL";
+            }else if(state =="END"){
+                state = "RESET";
             }
         }
    } 
