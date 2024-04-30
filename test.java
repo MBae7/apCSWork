@@ -727,7 +727,88 @@ public LogMessage(String message){
     machineId = message.subString(0,index);
     description = message.subString(index+1,message.length);
     
-}                            
+} 
+                               
+public boolean containsWord(String keyword){
+    int index = description.indexOf(keyword);//.indexOf not .getIndex()
+    if(index=-1){
+        return false;
+    }
+    if((index!=0 && description.substring(index-1,index).equals(" ")==false)||(index+keyword.length()!=description.length() && description.substring(index+keyword.length(),index+keyword.length()+1).equals(" ")==false)){//needs to be index+keyword.length() not just index 
+        return false;
+    }
+    return true;
+}
+                               
+public List<LogMessage> removeMessages(String keyword){
+    ArrayList<LogMessage> removed = new ArrayList<LogMessage>;
+    for(int i = messageList.length(); i>=0;i--){
+        if(messageList.get(i).containsWord(keyword)){
+            removed.add(i);
+            messageList.remove(i);
+        }
+    }
+    return removed; 
+}
+// can arraylist be delcared as List<>?
+                               
+private boolean toBelabeled(int r, int c, boolean[][] blackSquares){
+    if(blackSquares[r][c]){
+        return false;
+    }
+    if(c==0||(c !=0 &&blackSquares[r][c-1])||r==0||(r!=0&&blackSqaures[r-1][c])){
+        return true;
+    }
+    return false;
+}
+//what is boolean[][]
+//if length condidtion comes before potentially out of bounds statement is ok?
+                               
+public Crossword(boolean[][] blackSquares){
+    int count = 1;//needs to be 1 not 0 cause counting starts at 1 
+    puzzle = new Square[blackSquares.length()][blackSquares[].length()];
+    for(int r=0; r<puzzle.length; r++){
+        for(int c = 0; c<puzzle[].length; c++){
+            if(puzzle[r][c]toBelabeled){
+                puzzle[r][c] = Square(false,count);
+                count++;
+            }else if(blackSquares[r][c]==false){
+                puzzle[r][c] = Square(true,0);//0 not null, READ THE QUESTION CLOSER
+            }else if(blackSquares[r][c]){
+                puzzle[r][c] = Square(true,0);
+            }
+        }
+    }
+}
+                               
+public static int totalLetters(List<String> wordList){
+    int total = 0;
+    for(String word : wordList){
+        total+=word.length();
+    }
+    return total;
+}
+                               
+public static int basicGapWidth(List<String> wordList, int formattedLen){
+    return (int)((formattedLen-totalLetters(wordList))/(wordList.length()-1));//totalLetters(wordList) not wordList.totalLetters() bc method from same class you're in and need to fufill totalLetters parameters
+}
+//would be wordList.totalLetters() or just totalLetters()
+                               
+public static String format(List<String> wordList, int formattedLen){
+    String string = "";
+    int extra = leftoverSpaces(List<String> wordList, int formattedLen);
+    for(int i = 0; i<wordList.length(); i++){
+        string += wordList.get(i);
+        for(int j = 0; j<basicGapWidth(wordlist,formattedLen); j++){
+        string+= " ";
+        }
+        if(extra>0){
+            string+=" ";
+            extra --;
+        }
+    }
+    return string;
+}
                                
                                
 c,d,c,d,e,a,e,d,b, 10(better/fastest way?)d, c, c(?)(a?)!!!B!!,e,d,e (why not d)(bc random returns in between 0 inclusive and 1 exclusive),d(but why would work)!!B!!(recursive???),d, e,d,b(20), d(?)!, a?, !e (D), d (static),d, !D(C), e, !e (B)(subString.(oneIndex) --> substring of index to end of string), !a(E)(recursive), !c(B)(30),a, b, e,  e
@@ -740,4 +821,13 @@ more on recursive (ex 16), a, d, e, d, d, !E(A)(!!!!)
     //enhanced for loops don't have an index, refers to value so wouldn't have []
     //if applicable set variables to simple number and solve with plugged in values
     //in subclass constructor must use super call to constructer (ex. in square (extends rectanlge) would have super() is reference to rectangle())
-            
+           
+    
+    //declaring/initializing constructors, classes, arraylists, arrays
+    
+    //go through frqs, mcqs, find areas of struggle, look at/review frqs to remember patterns, etc,  barrons book, short quizzes, do 2015 
+    //do 4a of 2015 frq but do unit 5 frq (creating classes) instead of interfaces 
+    //1st = method (if statements, loops,ex leapyear/day of week); 2nd = utitlizing a class/creating a class (ex step tracker)(creating entire class); 3rd = array/arraylist; 4th = 2d arrays (could still have constrctor though, initializing intitial values of variables)
+    //don't need inheritance for frqs (combined table thing would be closest thing but still not inheritiance)
+    //sorting sort of coes up in frqs but not specific types of sorting
+    //for MCQ loops: MAKE SURE YOU KNOW WHERE THE LOOP IS STARTING, ITS NOT ALWAYS 0

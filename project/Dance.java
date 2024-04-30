@@ -27,7 +27,7 @@ public class Dance extends PApplet {
     
     String song = that;
     
-    int initial = 16;
+    int initial = 11;
     
     int lives = initial;
     int livesX;
