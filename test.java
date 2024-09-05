@@ -811,6 +811,85 @@ public static String format(List<String> wordList, int formattedLen){
 }
                                
                                
+                               
+public static int numberOfLeapYears(int year1, int year2){
+    int count = 0;
+    for(int i=year1;i<=year2; i++){
+        if(isLeapYear(i)){
+            count++;
+        }
+    }
+    return count; 
+}
+                               
+public static int dayOfWeek(int month, int day, int year){
+    int day = dayOfYear(month,day, year);
+    day = day+firstDayOfYear();
+    if(isLeapYear(year)&&month>2){
+        day++;
+    }
+    return (day-1)%7;
+}
+                               
+public class StepTracker{
+    private int min;
+    private int activeDays;
+    private int totalSteps;
+    
+    public StepTracker(int min){
+        this.min = min;
+        activeDays=0;
+        totalSteps = 0;
+    }
+    
+    
+}
+                               
+public LightBoard(int numRows, int numCols){
+    int chance = 0;
+    lights = new boolean[numRows][numCols];
+    for(int r = 0; r<numRows; r++){
+        for(int c = 0; c<numCols; c++){
+            chance = Math.random()*10;
+            if(chance<4){
+                light[r][c] = true;
+            }
+        }
+    }
+}
+                               
+public boolean evaluateLight(int row, int col){
+    count = 0;
+    boolean light;
+    if(lights[row][col]){
+        for(light[] r : lights){
+            for(light :c r ){
+                if(c){
+                    count++;
+                }
+            }
+        }
+        if (count%2==0){
+            return false;
+        }else{
+            return true;
+        }
+    }if(!lights[row][col]){
+        for(light[] r : lights){
+            for(light :c r ){
+                if(c){
+                    count++;
+                }
+            }
+        }
+        if(count%3 == 0){
+            return true;
+        }
+    }
+    return false;
+}
+                               
+                               
 c,d,c,d,e,a,e,d,b, 10(better/fastest way?)d, c, c(?)(a?)!!!B!!,e,d,e (why not d)(bc random returns in between 0 inclusive and 1 exclusive),d(but why would work)!!B!!(recursive???),d, e,d,b(20), d(?)!, a?, !e (D), d (static),d, !D(C), e, !e (B)(subString.(oneIndex) --> substring of index to end of string), !a(E)(recursive), !c(B)(30),a, b, e,  e
 more on recursive (ex 16), a, d, e, d, d, !E(A)(!!!!)
     s
